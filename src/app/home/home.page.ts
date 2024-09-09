@@ -13,20 +13,22 @@ export class HomePage {
     this.activerouter.queryParams.subscribe(params => {
       var user = this.router.getCurrentNavigation()?.extras.state?.['user'];
       var pass = this.router.getCurrentNavigation()?.extras.state?.['id'];
-      console.log(user);
-      console.log(pass);
-
+      
       if (user == "") {
         console.log("usuario en blanco");
-        
+      }else{
+        console.log(user);
+        console.log(pass);
       }
 
     });
   }
 
-  navega() {
+  volver() {
     this.router.navigate(['/login']);
   }
+  navega(){
+    this.router.navigate(['/listado-asistencia']);
+  }
 
-  alertButtons = ['Action'];
 }

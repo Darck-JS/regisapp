@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
@@ -40,11 +41,20 @@ export class LoginPage implements OnInit {
       }
 
     };
+    var mensaje= "";
+    if (this.usuario.value.user === "" ) {
+      
+      mensaje = "Debe ingresar un nombre de usuario\n";
+      
+    }
+    if (this.usuario.value.pass === "") {
+      mensaje = mensaje + "Debe Ingresar una Contraseña";
+    }
+    
+    if (mensaje === "") {
       this.router.navigate(['/home'], setData);
-
-
-
-
+    }
+    
 
     
   }
