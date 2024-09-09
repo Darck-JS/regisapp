@@ -19,6 +19,18 @@ const routes: Routes = [
     path: 'recuperapass',
     loadChildren: () => import('./recuperapass/recuperapass.module').then( m => m.RecuperapassPageModule)
   },
+  {
+    path: 'listado-asistencia',
+    loadChildren: () => import('./listado-asistencia/listado-asistencia.module').then( m => m.ListadoAsistenciaPageModule)
+  },
+  {
+    path: 'foto-registro',
+    loadChildren: () => import('./foto-registro/foto-registro.module').then( m => m.FotoRegistroPageModule)
+  },
+  {
+    path: 'home-alumno',
+    loadChildren: () => import('./home-alumno/home-alumno.module').then( m => m.HomeAlumnoPageModule)
+  },
 ];
 
 @NgModule({

@@ -15,6 +15,12 @@ export class HomePage {
       var pass = this.router.getCurrentNavigation()?.extras.state?.['id'];
       console.log(user);
       console.log(pass);
+
+      if (user == "") {
+        console.log("usuario en blanco");
+        
+      }
+
     });
   }
 
@@ -22,5 +28,5 @@ export class HomePage {
     this.router.navigate(['/login']);
   }
 
-
+  alertButtons = ['Action'];
 }

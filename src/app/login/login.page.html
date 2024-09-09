@@ -19,6 +19,7 @@
 
     <ion-item>
       <ion-input
+      id="user"
       label="User"
       label-placement="floating"
       fill="solid"
@@ -42,16 +43,6 @@
 
     <ion-button color="success" class="ingresa" (click)="navegahome()" fill="outline" id="ingresa">Ingresa</ion-button>
     <br><br>
-    <ion-button fill="clear" size="small" (click)="recuperapass()">¿olvido su contraseña?</ion-button>
+    <ion-button id="ingresa" fill="clear" size="small" (click)="recuperapass()">¿olvido su contraseña?</ion-button>
   </div>
 </form>
-
-<ion-alert
-  trigger="ingresa"
-  header="Ha ocurrido un error"
-  message="usuario o contraseña incorrecto"
-  [buttons]="alertButtons"
-  ></ion-alert>
-</ion-content>
-
-<!-- subHeader="A Sub Header Is Optional" -->

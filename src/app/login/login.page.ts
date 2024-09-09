@@ -27,7 +27,6 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/recuperapass']);
   }
 
-
   navegahome() {
 
     let setData: NavigationExtras = {
@@ -41,9 +40,13 @@ export class LoginPage implements OnInit {
       }
 
     };
-    this.router.navigate(['/home'], setData);
+      this.router.navigate(['/home'], setData);
+
+
+
+
+
     
   }
-  alertButtons = ['Action'];
 
 }
