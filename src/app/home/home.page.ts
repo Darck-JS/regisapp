@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { AlertButton } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,18 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private activerouter: ActivatedRoute, private router: Router) {
+    this.activerouter.queryParams.subscribe(params => {
+      var user = this.router.getCurrentNavigation()?.extras.state?.['user'];
+      var pass = this.router.getCurrentNavigation()?.extras.state?.['id'];
+      console.log(user);
+      console.log(pass);
+    });
+  }
+
+  navega() {
+    this.router.navigate(['/login']);
+  }
+
 
 }
