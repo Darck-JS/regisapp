@@ -31,3 +31,18 @@ ion-list{
   text-align: center;
   width: 100vh;
 }
+
+ion-item {
+  --padding-start: 0;
+}
+
+.listado{
+  display: flex;
+  justify-content: center;
+}
+ion-card-title{
+  text-align: center;
+}
+ion-card-subtitle{
+  text-align: end;
+}

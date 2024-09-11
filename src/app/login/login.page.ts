@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { state } from '@angular/animations';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,7 @@ import { state } from '@angular/animations';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -41,22 +41,26 @@ export class LoginPage implements OnInit {
       }
 
     };
-    var mensaje= "";
-    if (this.usuario.value.user === "" ) {
-      
-      mensaje = "Debe ingresar un nombre de usuario\n";
-      
-    }
-    if (this.usuario.value.pass === "") {
-      mensaje = mensaje + "Debe Ingresar una Contraseña";
-    }
-    
-    if (mensaje === "") {
+    var mensaje = "";
+    if (this.usuario.value.user === "estudiante" && this.usuario.value.pass === "1234") {
+      this.router.navigate(['/home-alumno'], setData);
+    } else if (this.usuario.value.user === "profesor" && this.usuario.value.pass === "4321") {
       this.router.navigate(['/home'], setData);
+    } else {
+      mensaje = 'Usuario o Contraseña Incorrecto'
+      this.alertaError('Error al Iniciar Sesion', mensaje);
     }
-    
-
-    
   }
+
+  async alertaError(titulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['Aceptar'],
+    });
+    await alert.present();
+  }
+
+
 
 }
