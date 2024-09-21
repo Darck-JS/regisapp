@@ -42,9 +42,9 @@ export class LoginPage implements OnInit {
 
     };
     var mensaje = "";
-    if (this.usuario.value.user === "estudiante" && this.usuario.value.pass === "1234") {
+    if (this.usuario.value.user === "jorge" && this.usuario.value.pass === "1234") {
       this.router.navigate(['/home-alumno'], setData);
-    } else if (this.usuario.value.user === "profesor" && this.usuario.value.pass === "4321") {
+    } else if (this.usuario.value.user === "diego" && this.usuario.value.pass === "1234") {
       this.router.navigate(['/home'], setData);
     } else {
       mensaje = 'Usuario o Contraseña Incorrecto'

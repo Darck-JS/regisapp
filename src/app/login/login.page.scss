@@ -2,19 +2,17 @@
     padding: 30px;
     border: 2px solid rgb(93, 197, 191);
     border-radius: 10px;
-    // background-color: rgb(158, 151, 151);
     width: 70%;
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    // text-align: center;
-    transform: translate(50%, -50%);
+    display: grid;
+    place-items: center;
+    margin: auto;
 }
 
-.contenedor.icono {
-    align-items: center;
-    text-align: center;
-}
+
 .icono{
-    font-size: 50px;
+    font-size: 40px;
+}
+.logotipo{
+    display: flex;
+    justify-content: center;
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { AlertButton } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,27 +10,43 @@ import { AlertButton } from '@ionic/angular';
 
 
 export class HomePage {
-  diaActual(){
-    var fecha;
-    const date = new Date();
-    fecha = date.getDay()+"-"+date.getMonth()+"-"+date.getFullYear();
-    return fecha
-  }
+  
+
   Usuario = this.router.getCurrentNavigation()?.extras.state?.['user'];
   fecha = this.diaActual();
+  
+
   constructor(private activerouter: ActivatedRoute, private router: Router) {
     this.activerouter.queryParams.subscribe(params => {
-      var user = this.router.getCurrentNavigation()?.extras.state?.['user'];
-      var pass = this.router.getCurrentNavigation()?.extras.state?.['id'];
+      this.router.getCurrentNavigation()?.extras.state?.['user'];
+      this.router.getCurrentNavigation()?.extras.state?.['id'];
 
     });
   }
 
+  diaActual() {
+    const fecha = new Date();
+    let desdeStr = `${fecha.getDate()}-${('0' + (fecha.getMonth() + 1)).slice(-2)}-${fecha.getFullYear()}`;
+    return desdeStr;
+  }
   volver() {
     this.router.navigate(['/login']);
   }
-  navega(){
+  navega() {
     this.router.navigate(['/listado-asistencia']);
   }
+  selecclass(){
+    
+  }
 
+
+
+
+
+
+
+
+  
 }
+
+

@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Recuperar Contraseña</ion-title>
+    <ion-title>Recupera tu Contraseña</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +13,22 @@
 
 
 
-  
+
+
+
+  <br><br><br>
+  <div class="contenedor">
+    <ion-icon name="lock-closed-outline" id="candado"></ion-icon>
+    <div class="box1">
+    </div>
+    <ion-input type="email" fill="solid" label="Email" labelPlacement="floating" helperText="Enter a valid email"
+      errorText="Invalid email" ngModel email></ion-input>
+    <br>
+    <ion-button shape="round">Enviar</ion-button>
+    <br><br><br>
+    <ion-button fill="clear" size="small" (click)="navega()" >Volver al inicio de sesíon</ion-button>
+  </div>
+
+
+
 </ion-content>
