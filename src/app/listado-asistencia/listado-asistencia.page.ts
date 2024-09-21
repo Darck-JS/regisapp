@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listado-asistencia',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListadoAsistenciaPage implements OnInit {
 
-  constructor() { }
+  constructor(private rouer: Router) { }
 
   ngOnInit() {
   }
+
+navega(){
+  this.rouer.navigate(['/home'])
+}
+
+
 
 }

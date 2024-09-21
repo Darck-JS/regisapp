@@ -1,13 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>fotoRegistro</ion-title>
+    <ion-title>foto Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">fotoRegistro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+
+
+  <!-- <ion-button fill="clear" (click)="confirma()" trigger="present-alert">
+  </ion-button> -->
+  
+  
+  
+  
+  <ion-button id="present-alert" fill="clear">
+    <ion-icon name="scan-circle-outline"class="icono"></ion-icon>
+  </ion-button>
+  <ion-alert
+    trigger="present-alert"
+    header="Asistencia Registrado con exito"
+    [buttons]="alertButtons"
+    (didDismiss)="setResult($event)"
+  ></ion-alert>
 </ion-content>

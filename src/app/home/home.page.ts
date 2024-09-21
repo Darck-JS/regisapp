@@ -35,9 +35,7 @@ export class HomePage {
   navega() {
     this.router.navigate(['/listado-asistencia']);
   }
-  selecclass(){
-    
-  }
+
 
 
 
