@@ -39,17 +39,32 @@ export class LoginPage implements OnInit {
         id: this.usuario.value.pass
 
       }
+    };
+    const loginMap: {[key: string]: string}={
+      'prof:1234': '/home',
+      'diego:1234': '/home',
+      'alumn:1234': '/home-alumno',
+      'jorge:1234': '/home-alumno',
 
     };
-    var mensaje = "";
-    if (this.usuario.value.user === "jorge" && this.usuario.value.pass === "1234") {
-      this.router.navigate(['/home-alumno'], setData);
-    } else if (this.usuario.value.user === "diego" && this.usuario.value.pass === "1234") {
-      this.router.navigate(['/home'], setData);
-    } else {
-      mensaje = 'Usuario o Contraseña Incorrecto'
-      this.alertaError('Error al Iniciar Sesion', mensaje);
+    const userkeypass = `${this.usuario.value.user}:${this.usuario.value.pass}`
+
+    if(loginMap[userkeypass]){
+      this.router.navigate([loginMap[userkeypass]], setData);
+    }else{
+      this.alertaError('Error al Iniciar Sesion', 'Usuario o Contraseña Incorrecto');
     }
+
+
+    // var mensaje = "";
+    // if (this.usuario.value.user === "jorge" && this.usuario.value.pass === "1234") {
+    //   this.router.navigate(['/home-alumno'], setData);
+    // } else if (this.usuario.value.user === "diego" && this.usuario.value.pass === "1234") {
+    //   this.router.navigate(['/home'], setData);
+    // } else {
+    //   mensaje = 'Usuario o Contraseña Incorrecto'
+    //   this.alertaError('Error al Iniciar Sesion', mensaje);
+    // }
   }
 
   async alertaError(titulo: string, mensaje: string) {

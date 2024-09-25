@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -9,7 +9,15 @@ import { AlertController } from '@ionic/angular';
 })
 export class FotoRegistroPage implements OnInit {
 
-  constructor(private router: Router, private alertController: AlertController) { }
+  curso = this.router.getCurrentNavigation()?.extras.state?.['curso'];
+  
+  constructor(private activerouter: ActivatedRoute, private router: Router, private alertController: AlertController) {
+    this.activerouter.queryParams.subscribe(params => {
+      this.router.getCurrentNavigation()?.extras.state?.['curso'];
+      this.router.getCurrentNavigation()?.extras.state?.['id'];
+
+    });
+  }
 
   ngOnInit() {
   }

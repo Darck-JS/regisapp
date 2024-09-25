@@ -21,36 +21,12 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item>
+          <ion-item *ngFor = "let curso of cursos">
             <ion-thumbnail slot="start">
               <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
             </ion-thumbnail>
-            <ion-button id="1" fill="clear" class="clases" (click)="navega()">Programacion web</ion-button>
-            <h3>15:00 hrs</h3>
-          </ion-item>
-          
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-            </ion-thumbnail>
-            <ion-button id="2" fill="clear" class="clases" (click)="navega()">programacion mobil</ion-button>
-            <h3>16:00 hrs</h3>
-          </ion-item>
-          
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-            </ion-thumbnail>
-            <ion-button id="3" fill="clear" class="clases" (click)="navega()">fundamentos de programacion</ion-button>
-            <h3>17:00 hrs</h3>
-          </ion-item>
-          
-          <ion-item lines="none">
-            <ion-thumbnail slot="start">
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-            </ion-thumbnail>
-            <ion-button id="4" fill="clear" class="clases" (click)="navega()">programacion de base de datos</ion-button>
-            <h3>18:00 hrs</h3>
+            <ion-button fill="clear"(click)="navega(curso.nombre)">{{curso.nombre}}</ion-button>
+            <h3>{{curso.hora}}</h3>
           </ion-item>
         </ion-list>
       </ion-card-content>
