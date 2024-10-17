@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { guardGuard } from '../guard/guard.guard';
+import { AuthserviceService } from '../service/authservice.service';
+import { ConsumoapiService } from '../service/consumoapi.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private alertController: AlertController) { }
+  nombre = "";
+
+  constructor(private consumoapi: ConsumoapiService,private router: Router, private alertController: AlertController, private authService: AuthserviceService) { }
 
   ngOnInit() {
   }
@@ -41,8 +46,8 @@ export class LoginPage implements OnInit {
       }
     };
     const loginMap: {[key: string]: string}={
-      'prof:1234': '/home',
-      'diego:1234': '/home',
+      'prof:1234': '/home-profesor',
+      'diego:1234': '/home-profesor',
       'alumn:1234': '/home-alumno',
       'jorge:1234': '/home-alumno',
 
@@ -50,21 +55,17 @@ export class LoginPage implements OnInit {
     const userkeypass = `${this.usuario.value.user}:${this.usuario.value.pass}`
 
     if(loginMap[userkeypass]){
+      this.authService.login();
       this.router.navigate([loginMap[userkeypass]], setData);
     }else{
       this.alertaError('Error al Iniciar Sesion', 'Usuario o Contraseña Incorrecto');
     }
 
 
-    // var mensaje = "";
-    // if (this.usuario.value.user === "jorge" && this.usuario.value.pass === "1234") {
-    //   this.router.navigate(['/home-alumno'], setData);
-    // } else if (this.usuario.value.user === "diego" && this.usuario.value.pass === "1234") {
-    //   this.router.navigate(['/home'], setData);
-    // } else {
-    //   mensaje = 'Usuario o Contraseña Incorrecto'
-    //   this.alertaError('Error al Iniciar Sesion', mensaje);
-    // }
+
+
+
+
   }
 
   async alertaError(titulo: string, mensaje: string) {

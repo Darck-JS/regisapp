@@ -9,13 +9,14 @@
 <br>
   <div class="imagen">
     <img alt="CodigoQR" src="../../assets/images/22108.png" />
+     <!-- <img [src]="qrDataURL" *ngif="qrDataURL" class="qr-image"> -->
   </div>
 <br>
 <ion-list>
   <ion-list-header>
     <ion-label>
       <h1>
-        Bienvenidos a la clase de: <br><br>{{nombreClase}}
+        Bienvenidos a la clase de: <br><br>{{nombreClase}}, cod clase: {{codigoClase}}
       </h1>
     </ion-label>
   </ion-list-header>

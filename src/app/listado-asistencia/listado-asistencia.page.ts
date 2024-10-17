@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import * as QRCode from 'qrcode-generator';
 
 @Component({
   selector: 'app-listado-asistencia',
@@ -7,24 +8,46 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
   styleUrls: ['./listado-asistencia.page.scss'],
 })
 export class ListadoAsistenciaPage implements OnInit {
-  nombreClase = this.router.getCurrentNavigation()?.extras.state?.['curso'];
   Usuario = this.router.getCurrentNavigation()?.extras.state?.['user'];
+  idClase = this.router.getCurrentNavigation()?.extras.state?.['id'];
+  nombreClase = this.router.getCurrentNavigation()?.extras.state?.['nombre'];
+  codigoClase = this.router.getCurrentNavigation()?.extras.state?.['codigo'];
+  seccionClase = this.router.getCurrentNavigation()?.extras.state?.['seccion'];
 
 
   constructor(private activerouter: ActivatedRoute, private router: Router) {
     this.activerouter.queryParams.subscribe(params => {
-      this.router.getCurrentNavigation()?.extras.state?.['user'];
+      if (this.router.getCurrentNavigation()?.extras.state) {
+        this.idClase = this.router.getCurrentNavigation()?.extras.state?.['id'];
+        
+      }
     });
 
   }
+  
+  // generaQR(){
+  //   if (this.idClase) {
+  //     const fechaActual = new Date().toISOString().split('T')[0]; //formato fecha
+  //     const data = `${this.codigoClase}-${this.seccionClase}-${fechaActual}`;
 
+  //     let qr = QRCode(4, 'L');
+  //     qr.addData(data);
+  //     qr.make();
+  //     this.qrDataURL = qr.createDataURL(4);
+  //   }
+  // }
 
   ngOnInit() {
+    // this.generaQR();
   }
 
   navega() {
     this.router.navigate(['/home'])
   }
+
+
+
+
 
   alumnos = [
     { rut: '1-9', nombre: 'Juan Fernández', estado: 'PRESENTE' },

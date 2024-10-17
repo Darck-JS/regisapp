@@ -12,8 +12,6 @@ export class HomeAlumnoPage implements OnInit {
   fecha = this.now.toLocaleString();
   constructor(private activerouter: ActivatedRoute, private router: Router) {
     this.activerouter.queryParams.subscribe(params => {
-      this.router.getCurrentNavigation()?.extras.state?.['user'];
-      this.router.getCurrentNavigation()?.extras.state?.['id'];
 
     });
   }
@@ -22,13 +20,13 @@ export class HomeAlumnoPage implements OnInit {
   }
 
 
-navega(nombre: string) {
+navega(nombre: string, usu: string) {
   let setData: NavigationExtras = {
     
     state: {
       
       curso: nombre,
-      user: this.Usuario
+      user: usu
     }
   };
 

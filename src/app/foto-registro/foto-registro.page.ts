@@ -10,11 +10,10 @@ import { AlertController } from '@ionic/angular';
 export class FotoRegistroPage implements OnInit {
 
   curso = this.router.getCurrentNavigation()?.extras.state?.['curso'];
-  
+  usuario = this.router.getCurrentNavigation()?.extras.state?.['user'];
+
   constructor(private activerouter: ActivatedRoute, private router: Router, private alertController: AlertController) {
     this.activerouter.queryParams.subscribe(params => {
-      this.router.getCurrentNavigation()?.extras.state?.['curso'];
-      this.router.getCurrentNavigation()?.extras.state?.['id'];
 
     });
   }
