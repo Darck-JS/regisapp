@@ -37,9 +37,13 @@
               <ion-thumbnail slot="start">
                 <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
               </ion-thumbnail>
-              <ion-button fill="clear"
-                (click)="navega(curso.id, curso.nombre, curso.codigo, curso.seccion)">{{curso.nombre}}</ion-button>
-              <h3>{{curso.hora}}</h3>
+              <ion-button fill="clear" (click)="navega(curso.id, curso.nombre, curso.codigo, curso.seccion)">
+                <h3>
+                  {{curso.nombre}}
+                  codigo: {{curso.codigo}}
+                  seccion: {{curso.seccion}}
+                </h3>
+              </ion-button>
             </ion-item>
           </ion-list>
         </ion-card-content>

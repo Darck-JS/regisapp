@@ -24,15 +24,15 @@ export class ConsumoapiService {
   constructor(private http: HttpClient) { }
 
 
-  getPost(): Observable<any> {
+  PostProfesor(): Observable<any> {
     return this.http.get(this.apiURL + '/profesores').pipe(
       retry(3)
     );
   }
 
 
-  postLogin(): Observable<any>{
-    return this.http.get(this.apiURL+'/login').pipe(retry(4));
+  GetCursoXprofe(id: number): Observable<any>{
+    return this.http.get(this.apiURL+'/profesores/'+id+'/cursos', this.httpOptions).pipe(retry(4));
   }
 
 }

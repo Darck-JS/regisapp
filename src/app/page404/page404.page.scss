@@ -1,11 +1,16 @@
-ion-icon{
-    font-size: 200px;
-}
-
 .error{
+    font-size: 200px;
     position: relative;
     display: flex;
     margin: auto;
     justify-content: center;
-    
+}
+
+h2{
+    text-align: center;
+}
+
+.boton404{
+    display: grid;
+    justify-content: center;
 }
