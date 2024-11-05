@@ -13,21 +13,22 @@ import { ConsumoapiService } from '../service/consumoapi.service';
 export class HomePage implements OnInit{
   
   titulo = "";
-  Usuario = "";
-  // Usuario = this.router.getCurrentNavigation()?.extras.state?.['user'];
+  Usuario = this.router.getCurrentNavigation()?.extras.state?.['nombre'];
+  id: number = this.router.getCurrentNavigation()?.extras.state?.['id'];
   now = new Date();
   fecha = this.now.toLocaleString();
   
 
   constructor(private activerouter: ActivatedRoute, private router: Router, private consumoApi: ConsumoapiService) {
     this.activerouter.queryParams.subscribe(params => {
-      this.router.getCurrentNavigation()?.extras.state?.['user'];
       this.router.getCurrentNavigation()?.extras.state?.['id'];
-
+      this.router.getCurrentNavigation()?.extras.state?.['nombre'];
+      this.router.getCurrentNavigation()?.extras.state?.['correo'];
+      this.router.getCurrentNavigation()?.extras.state?.['perfil'];
     });
   }
   ngOnInit(): void {
-    this.ObtenerDatos();
+    // this.ObtenerDatos();
     this.obtenerCursos();
   }
 
@@ -37,6 +38,7 @@ export class HomePage implements OnInit{
   //   {id:3, nombre: 'PROGRAMACION DE BASE DE DATOS', codigo: 'pwb569', seccion: '017v', hora: '17:00 hrs'},
   //   {id:4, nombre: 'INGLES ELEMENTAL', codigo: 'pwb569', seccion: '017v', hora: '18:00 hrs'},
   // ]
+  
   cursos: any[] =[];
 
   volver() {
@@ -48,7 +50,9 @@ export class HomePage implements OnInit{
       state: {
         
         curso: id, nombre, codigo, seccion,
-        user: this.Usuario
+        user: this.Usuario,
+        iduser: this.id,
+        idCur: id
       }
     };
 
@@ -57,18 +61,17 @@ export class HomePage implements OnInit{
 
 
   // metodo para mostrar
-  ObtenerDatos(){
-    this.consumoApi.PostProfesor().subscribe((res)=>{
-      // console.log(res[0]);
-      this.Usuario = res[0].nombre;
-      
-    });
-  }
+  // ObtenerDatos(){
+  //   this.consumoApi.GetProfesor().subscribe((res)=>{
+  //     this.Usuario = res[0].nombre;
+  //   });
+  // }
 
   // obtener cursos
   obtenerCursos(){
-    this.consumoApi.GetCursoXprofe(1).subscribe((res)=>{
+    this.consumoApi.GetCursoXprofe(this.id).subscribe((res)=>{
       this.cursos = res;
+      this.titulo = res.nombre
     })
   }
 

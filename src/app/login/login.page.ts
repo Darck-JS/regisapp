@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { guardGuard } from '../guard/guard.guard';
 import { AuthserviceService } from '../service/authservice.service';
 import { ConsumoapiService } from '../service/consumoapi.service';
 
@@ -12,8 +11,6 @@ import { ConsumoapiService } from '../service/consumoapi.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-  nombre = "";
 
   constructor(private consumoapi: ConsumoapiService,private router: Router, private alertController: AlertController, private authService: AuthserviceService) { }
 
@@ -33,40 +30,35 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/recuperapass']);
   }
 
-  navegahome() {
+  // navegahome() {
 
-    let setData: NavigationExtras = {
+  //   let setData: NavigationExtras = {
 
-      state: {
+  //     state: {
 
-        user: this.usuario.value.user,
+  //       user: this.usuario.value.user,
 
-        id: this.usuario.value.pass
+  //       id: this.usuario.value.pass
 
-      }
-    };
-    const loginMap: {[key: string]: string}={
-      'prof:1234': '/home-profesor',
-      'diego:1234': '/home-profesor',
-      'alumn:1234': '/home-alumno',
-      'jorge:1234': '/home-alumno',
+  //     }
+  //   };
 
-    };
-    const userkeypass = `${this.usuario.value.user}:${this.usuario.value.pass}`
+  //   const loginMap: {[key: string]: string}={
+  //     'prof:1234': '/home-profesor',
+  //     'diego:1234': '/home-profesor',
+  //     'alumn:1234': '/home-alumno',
+  //     'jorge:1234': '/home-alumno',
 
-    if(loginMap[userkeypass]){
-      this.authService.login();
-      this.router.navigate([loginMap[userkeypass]], setData);
-    }else{
-      this.alertaError('Error al Iniciar Sesion', 'Usuario o Contraseña Incorrecto');
-    }
+  //   };
+  //   const userkeypass = `${this.usuario.value.user}:${this.usuario.value.pass}`
 
-
-
-
-
-
-  }
+  //   if(loginMap[userkeypass]){
+  //     this.authService.login();
+  //     this.router.navigate([loginMap[userkeypass]], setData);
+  //   }else{
+  //     this.alertaError('Error al Iniciar Sesion', 'Usuario o Contraseña Incorrecto');
+  //   }
+  // }
 
   async alertaError(titulo: string, mensaje: string) {
     const alert = await this.alertController.create({
@@ -78,5 +70,58 @@ export class LoginPage implements OnInit {
   }
 
 
+// funcion que me permite validar a los usuarios
+  login(){
+    this.consumoapi.postLogin(this.usuario.value.user, this.usuario.value.pass).subscribe((resp)=>{
+      let tperfil: number = resp.tipoPerfil;
+      let setData: NavigationExtras ={
+        state: {
+          id: resp.id,
+          nombre: resp.nombre,
+          correo: resp.correo,
+          perfil: resp.tipoPerfil
+        }
+      };
+      if (tperfil ==1) {
+        this.authService.login();
+        this.router.navigate(['/home-profesor'], setData);
+      }else if (tperfil==2) {
+        this.authService.login();
+        this.router.navigate(['/home-alumno'], setData);
+      }
+      
+    },(error)=>{
+      this.alertaError("ERROR", "Usuario o contraseña Incorrecto ")
+    });
+    ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
+
+
+

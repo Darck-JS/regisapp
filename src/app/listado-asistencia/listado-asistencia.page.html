@@ -5,29 +5,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- <img alt="CodigoQR" src="../../assets/images/22108.png" /> -->
 
-<br>
+  <br>
   <div class="imagen">
-    <!-- <img alt="CodigoQR" src="../../assets/images/22108.png" /> -->
-     <img [src]="qrDataURL" *ngif="qrDataURL" class="qr-image">
+    <ng-container *ngIf="qrDataURL">
+      <img [src]="qrDataURL" class="qr-image" alt="CodigoQR" />
+    </ng-container>
   </div>
-<br>
-<ion-list>
-  <ion-list-header>
-    <ion-label>
-      <h1>
-        Bienvenidos a la clase de: <br><br>{{nombreClase}}, cod clase: {{codigoClase}}
-      </h1>
-    </ion-label>
-  </ion-list-header>
-  <ion-item *ngFor = "let alumno of alumnos">
-    <ion-label>
-      Rut: {{alumno.rut}} <br>
-      Nombre: {{alumno.nombre}} <br>
-      Estado: {{alumno.estado}}
+
+  <br>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>
+        <h1>
+          Bienvenidos a la clase de: {{nombreClase}}
+        </h1>
+        <h1>
+          cod clase: {{codigoClase}}
+        </h1>
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let alumno of alumnos">
+      <ion-label>
+        Rut: {{alumno.rut}} <br>
+        Nombre: {{alumno.nombre}} <br>
+        Estado: {{alumno.status}}
       </ion-label>
     </ion-item>
   </ion-list>
   <br>
-  <ion-button expand="block" (click)="navega()">Enviar asistencia y volver a asignaturas pendientes</ion-button>
 </ion-content>

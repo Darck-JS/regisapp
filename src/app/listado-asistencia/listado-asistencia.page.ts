@@ -10,25 +10,26 @@ import * as QRCode from 'qrcode-generator';
 })
 export class ListadoAsistenciaPage implements OnInit {
   qrDataURL = '';
-  respuesta = "";
   Usuario = this.router.getCurrentNavigation()?.extras.state?.['user'];
-  idClase = this.router.getCurrentNavigation()?.extras.state?.['id'];
+  idUsu = this.router.getCurrentNavigation()?.extras.state?.['iduser']
+  idClase = this.router.getCurrentNavigation()?.extras.state?.['idCur'];
   nombreClase = this.router.getCurrentNavigation()?.extras.state?.['nombre'];
   codigoClase = this.router.getCurrentNavigation()?.extras.state?.['codigo'];
   seccionClase = this.router.getCurrentNavigation()?.extras.state?.['seccion'];
 
 
-  constructor(private activerouter: ActivatedRoute, private router: Router,private consumoapi: ConsumoapiService) {
+  constructor(private activerouter: ActivatedRoute, private router: Router, private consumoapi: ConsumoapiService) {
     this.activerouter.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation()?.extras.state) {
-        this.idClase = this.router.getCurrentNavigation()?.extras.state?.['id'];
-        
-      }
     });
 
   }
-  
-  generaQR(){
+
+  ngOnInit() {
+    this.generaQR();
+    this.obtenerAlumnos();
+  }
+
+  generaQR() {
     if (this.idClase) {
       const fechaActual = new Date().toISOString().split('T')[0]; //formato fecha
       const data = `${this.codigoClase}-${this.seccionClase}-${fechaActual}`;
@@ -39,11 +40,6 @@ export class ListadoAsistenciaPage implements OnInit {
       this.qrDataURL = qr.createDataURL(4);
     }
   }
-
-  ngOnInit() {
-    this.generaQR();
-  }
-
   navega() {
     this.router.navigate(['/home'])
   }
@@ -66,8 +62,25 @@ export class ListadoAsistenciaPage implements OnInit {
   // ]
 
 
-  alumnos: any[] =[];
+  alumnos: any[] = [];
+
+  // obtener cursos
+  obtenerAlumnos() {
+    this.consumoapi.getalumnXprofe(this.idUsu, this.idClase).subscribe((res) => {
+      for (let i = 0; i < res.length; i++) {
+        if (parseInt(res[i].status) == 0) {
+          res[i].status = "AUSENTE";
+        }else if (parseInt(res[i].status) == 1) {
+          res[i].status = "PRESENTE"
+        }
+        this.alumnos = res;
+
+      }
+    })
+  }
 
 
-  
+
+
+
 }
