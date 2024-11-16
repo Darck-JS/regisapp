@@ -8,11 +8,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { Camera, CameraResultType } from '@capacitor/camera';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [HttpClientModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule, CommonModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  imports: [HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, CommonModule],
+  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

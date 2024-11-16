@@ -32,7 +32,7 @@ export class ListadoAsistenciaPage implements OnInit {
   generaQR() {
     if (this.idClase) {
       const fechaActual = new Date().toISOString().split('T')[0]; //formato fecha
-      const data = `${this.codigoClase}-${this.seccionClase}-${fechaActual}`;
+      const data = `${this.nombreClase}, ${this.codigoClase}, ${this.seccionClase}, ${fechaActual}`;
 
       let qr = QRCode(4, 'L');
       qr.addData(data);
