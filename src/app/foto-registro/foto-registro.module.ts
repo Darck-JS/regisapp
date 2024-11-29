@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FotoRegistroPageRoutingModule } from './foto-registro-routing.module';
 
 import { FotoRegistroPage } from './foto-registro.page';
+import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { FotoRegistroPage } from './foto-registro.page';
     IonicModule,
     FotoRegistroPageRoutingModule
   ],
-  declarations: [FotoRegistroPage]
+  declarations: [FotoRegistroPage, BarcodeScanningModalComponent]
 })
 export class FotoRegistroPageModule {}
