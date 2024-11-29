@@ -10,12 +10,12 @@
   </h1>
   <h1>{{curso}}</h1>
   <ion-button id="present-alert" fill="clear">
-    <ion-icon name="scan-circle-outline"class="icono"></ion-icon>
+    <ion-icon name="scan-circle-outline"class="icono" (click)="takePicture()"></ion-icon>
   </ion-button>
-  <ion-alert
+  <!-- <ion-alert
     trigger="present-alert"
     header="Asistencia Registrado con exito"
     [buttons]="alertButtons"
     (didDismiss)="setResult($event)"
-  ></ion-alert>
+  ></ion-alert> -->
 </ion-content>

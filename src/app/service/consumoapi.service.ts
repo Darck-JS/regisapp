@@ -19,30 +19,30 @@ export class ConsumoapiService {
   }
 
 
-  apiURL = 'http://127.0.0.1:5000';
+  apiURL = 'https://dqdkhkqg-5000.brs.devtunnels.ms/';
 
 
   constructor(private http: HttpClient) { }
 
 
   GetProfesor(): Observable<any> {
-    return this.http.get(this.apiURL + '/profesores').pipe(
+    return this.http.get(this.apiURL + 'profesores').pipe(
       retry(3)
     );
   }
   
 
   GetCursoXprofe(id: number): Observable<any>{
-    return this.http.get(this.apiURL+'/profesores/'+id+'/cursos', this.httpOptions).pipe(retry(4));
+    return this.http.get(this.apiURL+'profesores/'+id+'/cursos', this.httpOptions).pipe(retry(4));
   }
   
   getalumnXprofe(idProf: number, idCur: number): Observable<any>{
-    return this.http.get(this.apiURL+ '/profesores/'+ idProf+ '/cursos/'+idCur+'/alumnos').pipe(retry(2));
+    return this.http.get(this.apiURL+ 'profesores/'+ idProf+ '/cursos/'+idCur+'/alumnos').pipe(retry(2));
   }
 
   postLogin(usuario: any, password: any): Observable<any>{
     const credenciales = { user: usuario, password: password };
-  return this.http.post(this.apiURL+'/login',credenciales,this.httpOptions).pipe();
+  return this.http.post(this.apiURL+'login',credenciales,this.httpOptions).pipe();
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Camera, CameraResultType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-foto-registro',
@@ -38,6 +39,16 @@ export class FotoRegistroPage implements OnInit {
   }
 
 
+public imageSrc: string | undefined = '';
 
+async takePicture() {
+  const image = await Camera.getPhoto({
+    quality: 90,
+    allowEditing: true,
+    resultType: CameraResultType.Uri
+  });
+  const imageUri = image.webPath;
+  this.imageSrc = imageUri;
+}
 
 }
