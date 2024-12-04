@@ -87,7 +87,7 @@ export class LoginPage implements OnInit {
         this.router.navigate(['/home-profesor'], setData);
       }else if (tperfil==2) {
         this.authService.login();
-        this.router.navigate(['/home-alumno'], setData);
+        this.router.navigate(['/foto-registro'], setData);
       }
       
     },(error)=>{

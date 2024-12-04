@@ -4,6 +4,7 @@ import { AlertController, LoadingController, ModalController, Platform } from '@
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
 import { LensFacing, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { ConsumoapiService } from '../service/consumoapi.service';
 
 @Component({
   selector: 'app-foto-registro',
@@ -22,7 +23,8 @@ export class FotoRegistroPage implements OnInit {
               private alertController: AlertController, 
               private modalController: ModalController,
               private platform: Platform,
-              private controladorDeCarga: LoadingController) {
+              private controladorDeCarga: LoadingController,
+              private consumoApi: ConsumoapiService) {
     this.activerouter.queryParams.subscribe(params => {
 
     });
@@ -92,7 +94,9 @@ async scannerQR() {
 }
 
 
-
+asistencia(){
+  this.consumoApi.postPresente(this.scannerQR()).subscribe();
+}
 
 
 

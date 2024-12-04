@@ -19,7 +19,9 @@ export class ConsumoapiService {
   }
 
 
-  apiURL = 'https://dqdkhkqg-5000.brs.devtunnels.ms/';
+  // apiURL = 'https://apiregisapp.azure-api.net/';
+  apiURL = 'https://sistencias-cedrh5hdgpasc3gy.brazilsouth-01.azurewebsites.net/';
+
 
 
   constructor(private http: HttpClient) { }
@@ -44,5 +46,11 @@ export class ConsumoapiService {
     const credenciales = { user: usuario, password: password };
   return this.http.post(this.apiURL+'login',credenciales,this.httpOptions).pipe();
   }
+  // id: any, codigo: any, seccion: any, fecha: any
+  postPresente(resultadoQR: any): Observable<any>{
+    const datos = { };
+    return this.http.post(this.apiURL+'/registrar_asistencia', datos, this.httpOptions).pipe();
+  }
+
 
 }

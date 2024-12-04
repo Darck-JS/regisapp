@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, methods=["GET", "POST", "PUT", "DELETE"])
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 profesores = [
     {
@@ -16,8 +16,9 @@ profesores = [
                 "seccion": "013V",
                 "alumnos": [
                     {"id": 1, "rut": "14.356.789-5", "nombre": "Pedro salas", "status": 0},
-                    {"id": 2, "rut": "19.834.562-K", "nombre": "Maria Jose", "status": 0},
-                    {"id": 3, "rut": "17.025.349-2", "nombre": "Andres Vencep", "status": 0}
+                    {"id": 2, "rut": "19.834.562-K", "nombre": "Luis Gonzalez", "status": 0},
+                    {"id": 3, "rut": "17.025.349-2", "nombre": "Andres Vencep", "status": 0},
+                    {"id": 4, "rut": "20.278.374-0", "nombre": "jorge solis", "status": 0}
                 ]
             },
             {
@@ -27,8 +28,9 @@ profesores = [
                 "seccion": "015V",
                 "alumnos": [
                     {"id": 1, "rut": "13.456.278-9", "nombre": "Alan Brito", "status":0},
-                    {"id": 2, "rut": "20.768.543-4", "nombre": "Armando Meza", "status":0},
-                    {"id": 3, "rut": "22.123.345-3", "nombre": "Pedro Pascal", "status":0}
+                    {"id": 2, "rut": "20.768.543-4", "nombre": "Luis Gonzalez", "status":0},
+                    {"id": 3, "rut": "22.123.345-3", "nombre": "Pedro Pascal", "status":0},
+                    {"id": 4, "rut": "20.278.374-0", "nombre": "jorge solis", "status": 0}
                 ]
             },
             {
@@ -38,8 +40,9 @@ profesores = [
                 "seccion": "018V",
                 "alumnos": [
                     {"id": 1, "rut": "18.654.239-7", "nombre": "Elsa Quito", "status":0},
-                    {"id": 2, "rut": "12.345.678-K","nombre": "Cruela Devil", "status":0},
-                    {"id": 3, "rut": "15.098.234-8","nombre": "Rubio Moreno", "status":0}
+                    {"id": 2, "rut": "12.345.678-K","nombre": "Luis Gonzalez", "status":0},
+                    {"id": 3, "rut": "15.098.234-8","nombre": "Rubio Moreno", "status":0},
+                    {"id": 4, "rut": "20.278.374-0", "nombre": "jorge solis", "status": 0}
                 ]
             }
         ]
@@ -63,6 +66,14 @@ usuarios = [
         "nombre": "Luis Gonzalez",
         "perfil": 2,
         "correo": "alumno@gmail.com"
+    },
+    {
+        "id": 4,
+        "user": "jorge",
+        "password": "solis",
+        "nombre": "Jorge Solis",
+        "perfil": 2,
+        "correo": "jor.solis@duocuc.cl"
     }
 ]
 
