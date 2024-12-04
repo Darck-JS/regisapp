@@ -16,6 +16,7 @@ export class ListadoAsistenciaPage implements OnInit {
   nombreClase = this.router.getCurrentNavigation()?.extras.state?.['nombre'];
   codigoClase = this.router.getCurrentNavigation()?.extras.state?.['codigo'];
   seccionClase = this.router.getCurrentNavigation()?.extras.state?.['seccion'];
+  nombreCurso: any;
 
 
   constructor(private activerouter: ActivatedRoute, private router: Router, private consumoapi: ConsumoapiService) {

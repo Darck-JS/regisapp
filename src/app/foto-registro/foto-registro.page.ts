@@ -89,13 +89,9 @@ async scannerQR() {
 
   if(data){
     this.resultadoQR = data?.barcode?.displeyValue;
+    this.consumoApi.postPresente(this.resultadoQR).subscribe();
   }
 
-}
-
-
-asistencia(){
-  this.consumoApi.postPresente(this.scannerQR()).subscribe();
 }
 
 
