@@ -38,7 +38,7 @@ export class ListadoAsistenciaPage implements OnInit {
       let qr = QRCode(4, 'L');
       qr.addData(data);
       qr.make();
-      this.qrDataURL = qr.createDataURL(4);
+      this.qrDataURL = qr.createDataURL(4, 0);
     }
   }
   navega() {

@@ -15,6 +15,7 @@ export class HomePage implements OnInit{
   titulo = "";
   Usuario = this.router.getCurrentNavigation()?.extras.state?.['nombre'];
   id: number = this.router.getCurrentNavigation()?.extras.state?.['id'];
+  correo = this.router.getCurrentNavigation()?.extras.state?.['correo'];
   now = new Date();
   fecha = this.now.toLocaleString();
   

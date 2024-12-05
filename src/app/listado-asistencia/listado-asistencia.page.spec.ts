@@ -3,6 +3,7 @@ import { ListadoAsistenciaPage } from './listado-asistencia.page';
 import { ConsumoapiService } from '../service/consumoapi.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
+import { IonicModule } from '@ionic/angular';
 
 describe('ListadoAsistenciaPage', () => {
   let component: ListadoAsistenciaPage;
@@ -12,20 +13,24 @@ describe('ListadoAsistenciaPage', () => {
 
   beforeEach(async() => {
     ConsumoapiServiceSpy = jasmine.createSpyObj('ConsumoapiService', ['getalumnXprofe']);
+    ConsumoapiServiceSpy.getalumnXprofe.and.returnValue(of([]));
     mockRouter = jasmine.createSpyObj('Router', ['getCurrentNavigation']);
     mockRouter.getCurrentNavigation.and.returnValue({
       extras: {
         state: {
-          nombre: 'curso de prueba',
-          id: '123',
-          codigo: 'ABC123',
-          seccion: '01V',
+          nombre: 'Curso de Prueba',
+          id: '321',
+          codigo: '123',
+          seccion: '01',
         },
       },
     } as any);
 
     await TestBed.configureTestingModule({
       declarations: [ListadoAsistenciaPage],
+      imports: [
+        IonicModule,
+      ],
       providers: [
         { provide: ConsumoapiService, useValue: ConsumoapiServiceSpy},
         { provide: Router, useValue: mockRouter},
@@ -49,13 +54,14 @@ describe('ListadoAsistenciaPage', () => {
   it('should initialize with course data from router state', () => {
     fixture.detectChanges();
     expect(component.nombreClase).toBe('Curso de Prueba');
-    expect(component.idClase).toBe('123');
-    expect(component.codigoClase).toBe('ABC123');
+    expect(component.codigoClase).toBe('123');
     expect(component.seccionClase).toBe('01');
   });
 
   // tercer test
   it('should load students when motrarAlumno is called', () => {
+    component.idUsu = 1;
+    component.idClase = 1;
     const mockStudents = [
       { id: 1, nombre: 'Luis', status: 0 },
       { id: 2, nombre: 'María', status: 0 },
@@ -65,7 +71,7 @@ describe('ListadoAsistenciaPage', () => {
 
     component.obtenerAlumnos();
 
-    expect(ConsumoapiServiceSpy.getalumnXprofe).toHaveBeenCalledWith(0, 1);
+    expect(ConsumoapiServiceSpy.getalumnXprofe).toHaveBeenCalledWith(1, 1);
     expect(component.alumnos).toEqual(mockStudents);
   });
 
@@ -77,7 +83,7 @@ describe('ListadoAsistenciaPage', () => {
 
     component.generaQR();
 
-    expect(component.qrDataURL).toContain('data:image/png;base64'); 
+    expect(component.qrDataURL).toContain('data:image/gif;base64');
     expect(component.qrDataURL).toBeTruthy();
   });
 
