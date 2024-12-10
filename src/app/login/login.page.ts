@@ -79,7 +79,7 @@ export class LoginPage implements OnInit {
           id: resp.id,
           nombre: resp.nombre,
           correo: resp.correo,
-          perfil: resp.tipoPerfil
+          perfil: resp.tipoPerfil,
         }
       };
       if (tperfil ==1) {

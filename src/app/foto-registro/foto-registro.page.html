@@ -6,10 +6,10 @@
 
 <ion-content [fullscreen]="true">
   <h1>
-    Estimado {{usuario}}, por favor escanee el codigo QR del profesor para acceder a su clase de:
+    Estimado {{usuario}}, por favor escanee el codigo QR del profesor para acceder a su clase
   </h1>
   <h1>{{curso}}</h1>
-  <ion-button id="present-alert" fill="clear" (click)="scannerQR()">
+  <ion-button id="present-alert" class="botonQR" fill="clear" (click)="scannerQR()">
     <ion-icon name="scan-circle-outline"class="icono"></ion-icon>
   </ion-button>
   <!-- <ion-alert
@@ -18,4 +18,11 @@
     [buttons]="alertButtons"
     (didDismiss)="setResult($event)"
   ></ion-alert> -->
+
+  <ion-button shape="round" (click)="volver()">
+    <ion-icon slot="start" name="return-up-back-outline"></ion-icon>
+    volver
+  </ion-button>
+
+
 </ion-content>

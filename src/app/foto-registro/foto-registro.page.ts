@@ -5,6 +5,7 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
 import { LensFacing, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { ConsumoapiService } from '../service/consumoapi.service';
+import { ServicioCompartidoService } from '../service/servicio-compartido.service';
 
 @Component({
   selector: 'app-foto-registro',
@@ -14,7 +15,8 @@ import { ConsumoapiService } from '../service/consumoapi.service';
 export class FotoRegistroPage implements OnInit {
 
   curso = this.router.getCurrentNavigation()?.extras.state?.['curso'];
-  usuario = this.router.getCurrentNavigation()?.extras.state?.['user'];
+  usuario = this.router.getCurrentNavigation()?.extras.state?.['nombre'];
+  idUser = this.router.getCurrentNavigation()?.extras.state?.['id'];
   resultadoQR = '';
 
 
@@ -24,9 +26,10 @@ export class FotoRegistroPage implements OnInit {
               private modalController: ModalController,
               private platform: Platform,
               private controladorDeCarga: LoadingController,
-              private consumoApi: ConsumoapiService) {
+              private consumoApi: ConsumoapiService,
+              private servicioCompartido: ServicioCompartidoService) {
     this.activerouter.queryParams.subscribe(params => {
-
+      
     });
   }
 
@@ -68,6 +71,11 @@ async takePicture() {
 }
 
 
+volver(){
+  this.router.navigate(['/login'])
+}
+
+
 
 
 
@@ -89,12 +97,18 @@ async scannerQR() {
 
   if(data){
     this.resultadoQR = data?.barcode?.displeyValue;
-    this.consumoApi.postPresente(this.resultadoQR).subscribe();
+    // extraer datos del qr
+    const [nombreClase, codigoClase, seccionClase, fecha, idusu] = this.resultadoQR.split(',').map(d => d.trim());
+    this.consumoApi.postPresente(this.idUser, codigoClase, seccionClase, fecha).subscribe(()=>{
+      this.consumoApi.getalumnXprofe(parseInt(idusu), parseInt(codigoClase)).subscribe((resul)=>{
+        this.servicioCompartido.actualizarAlumnos(resul);
+      });
+    });
   }
 
 }
 
-
+// 
 
 
 

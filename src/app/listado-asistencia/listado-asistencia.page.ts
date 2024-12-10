@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { ConsumoapiService } from '../service/consumoapi.service';
 import * as QRCode from 'qrcode-generator';
+import { ServicioCompartidoService } from '../service/servicio-compartido.service';
 
 @Component({
   selector: 'app-listado-asistencia',
@@ -19,7 +20,10 @@ export class ListadoAsistenciaPage implements OnInit {
   nombreCurso: any;
 
 
-  constructor(private activerouter: ActivatedRoute, private router: Router, private consumoapi: ConsumoapiService) {
+  constructor(private activerouter: ActivatedRoute,
+              private router: Router,
+              private consumoapi: ConsumoapiService,
+              private servicioCompartido: ServicioCompartidoService) {
     this.activerouter.queryParams.subscribe(params => {
     });
 
@@ -27,13 +31,16 @@ export class ListadoAsistenciaPage implements OnInit {
 
   ngOnInit() {
     this.generaQR();
+    this. servicioCompartido.alumnos$.subscribe((nuevaLista)=>{
+      this.alumnos = nuevaLista;
+    });
     this.obtenerAlumnos();
   }
 
   generaQR() {
     if (this.idClase) {
       const fechaActual = new Date().toISOString().split('T')[0]; //formato fecha
-      const data = `${this.nombreClase}, ${this.codigoClase}, ${this.seccionClase}, ${fechaActual}`;
+      const data = `${this.nombreClase}, ${this.codigoClase}, ${this.seccionClase}, ${fechaActual}, ${this.idUsu}`;
 
       let qr = QRCode(4, 'L');
       qr.addData(data);
@@ -75,7 +82,7 @@ export class ListadoAsistenciaPage implements OnInit {
           res[i].status = "PRESENTE"
         }
         this.alumnos = res;
-
+        this.servicioCompartido.actualizarAlumnos(res);
       }
     })
   }
