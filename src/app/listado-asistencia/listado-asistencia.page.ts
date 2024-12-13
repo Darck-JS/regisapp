@@ -47,7 +47,9 @@ export class ListadoAsistenciaPage implements OnInit {
   generaQR() {
     if (this.idClase) {
       const fechaActual = new Date().toISOString().split('T')[0]; //formato fecha
-      const data = `${this.nombreClase}, ${this.codigoClase}, ${this.seccionClase}, ${fechaActual}, ${this.idUsu}`;
+      let codMayus: string = this.codigoClase;
+      let seccMayus: string = this.seccionClase;
+      const data = `${this.nombreClase}, ${codMayus.toLocaleUpperCase()}, ${seccMayus.toUpperCase()}, ${fechaActual}`;
       this.qrDataURL = data;
     }
   }
@@ -77,20 +79,24 @@ export class ListadoAsistenciaPage implements OnInit {
 
   // obtener cursos
   obtenerAlumnos() {
-    // Llama al servicio de la API para obtener los alumnos del curso actual
     this.consumoapi.getalumnXprofe(this.idUsu, this.idClase).subscribe((res) => {
-      // Mapea la respuesta para transformar el estado numérico en texto legible
-      this.alumnos = res.map((alumno: { id: any; rut: any; nombre: any; status: string; }) => ({
-        id: alumno.id,                 // ID del alumno
-        rut: alumno.rut,               // RUT del alumno
-        nombre: alumno.nombre,         // Nombre del alumno
-        status: parseInt(alumno.status) === 1 ? 'PRESENTE' : 'AUSENTE' // Estado transformado
-      }));
-
-      // Log para depuración
-      console.log("Lista de alumnos actualizada:", this.alumnos);
+      console.log("Respuesta de la API:", res); // Asegúrate de que sea un array
+      if (Array.isArray(res)) {
+        this.alumnos = res.map((alumno) => ({
+          id: alumno.id,
+          rut: alumno.rut,
+          nombre: alumno.nombre,
+          status: parseInt(alumno.status) === 1 ? 'PRESENTE' : 'AUSENTE'
+        }));
+      } else {
+        console.error("La respuesta no es un array:", res);
+      }
+    }, (error) => {
+      console.error("Error al obtener la lista de alumnos:", error);
     });
+    
   }
+  
 
   volver() {
     this.router.navigate(['/home-profesor']);

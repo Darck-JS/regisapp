@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'; 
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpHandler } from '@angular/common/http'; 
 import { retry, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs'; 
 import { __param } from 'tslib';
@@ -47,9 +47,11 @@ export class ConsumoapiService {
   }
   
   postPresente(alumno_id: any, codigo: any, seccion: any, fecha: any): Observable<any>{
-    const datos = { id: alumno_id, cod: codigo, sec: seccion, hora: fecha};
-    return this.http.post(this.apiURL+'registrar_asistencia', datos, this.httpOptions).pipe();
+    const datos = { alumno_id: alumno_id, codigo: codigo, seccion: seccion, fecha: fecha};
+    return this.http.post(this.apiURL+'registrar_asistencia', datos, this.httpOptions).pipe(retry(3));
   }
+
+  
 
 
 }
