@@ -32,6 +32,7 @@
     "@ionic/angular": "^8.0.0",
     "@jcesarmobile/ssl-skip": "0.4.0",
     "ionicons": "^7.0.0",
+    "ng-qrcode": "^18.0.0",
     "qrcode": "^1.5.4",
     "qrcode-generator": "^1.4.4",
     "rxjs": "~7.8.0",

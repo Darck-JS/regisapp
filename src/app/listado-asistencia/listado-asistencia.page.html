@@ -8,9 +8,17 @@
   <br>
   <div class="imagen">
     <ng-container *ngIf="qrDataURL">
-      <img [src]="qrDataURL" class="qr-image" alt="CodigoQR" />
+      <div class="d-flex-center imagen">
+        <qr-code [value]="qrDataURL" 
+      size="200" 
+      errorCorrectionLevel="L" />
+      </div>
     </ng-container>
   </div>
+  
+  
+  <!-- {{qrDataURL}} -->
+
 
   <br>
   <ion-list>
@@ -24,15 +32,16 @@
         </h1>
       </ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let alumno of alumnos">
+    <ion-item *ngFor="let alumno of alumnos" >
       <ion-label>
         Rut: {{alumno.rut}} <br>
         Nombre: {{alumno.nombre}} <br>
-        Estado: {{alumno.status}}
+        <p>Estado: <span [ngClass]="{'presente': alumno.status === 'PRESENTE', 'ausente': alumno.status === 'AUSENTE'}">{{alumno.status}}</span></p>
       </ion-label>
     </ion-item>
   </ion-list>
   <br>
+  <!-- <pre>{{ alumnos | json }}</pre> -->
   <ion-button (click)="volver()">
     <ion-icon slot="start" name="return-up-back-outline"></ion-icon>
     Volver

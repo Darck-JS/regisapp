@@ -1,17 +1,30 @@
-ion-list{
-    text-align: center;
-}
-ion-label{
+ion-list {
     text-align: center;
 }
 
-.imagen{
+ion-label {
     text-align: center;
-    max-width: 100%;
+}
+
+.imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-flex-center {
+    width: 230px;
+    min-height: 230px;
+    background: var(--ion-color-tertiary);
+    border-radius: 20px;
+}
+
+.presente {
+    color: green;
+    font-weight: bold;
+}
+
+.ausente {
     color: red;
-    font-size: 100px;
-}
-
-img{
-    width: 250px;
+    font-weight: bold;
 }

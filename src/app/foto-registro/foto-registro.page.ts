@@ -14,9 +14,9 @@ import { ServicioCompartidoService } from '../service/servicio-compartido.servic
 })
 export class FotoRegistroPage implements OnInit {
 
-  curso = this.router.getCurrentNavigation()?.extras.state?.['curso'];
-  usuario = this.router.getCurrentNavigation()?.extras.state?.['nombre'];
-  idUser = this.router.getCurrentNavigation()?.extras.state?.['id'];
+  curso = this.router.getCurrentNavigation()?.extras.state?.['curso'] || '';
+  usuario = this.router.getCurrentNavigation()?.extras.state?.['nombre'] || '';
+  idUser = this.router.getCurrentNavigation()?.extras.state?.['id'] || '';
   resultadoQR = '';
 
 
@@ -35,8 +35,14 @@ export class FotoRegistroPage implements OnInit {
 
   ngOnInit() {
     if (this.platform.is('capacitor')) {
-      BarcodeScanner.isSupported().then();
-      BarcodeScanner.checkPermissions().then();
+      BarcodeScanner.isSupported()
+        .then((isSupported) => console.log('BarcodeScanner is supported:', isSupported))
+        .catch((error) => console.error('Error checking BarcodeScanner support:', error));
+  
+      BarcodeScanner.checkPermissions()
+        .then((permissions) => console.log('Permissions:', permissions))
+        .catch((error) => console.error('Error checking permissions:', error));
+  
       BarcodeScanner.removeAllListeners();
     }
   }
@@ -96,13 +102,18 @@ async scannerQR() {
   const { data } = await modal.onWillDismiss();
 
   if(data){
-    this.resultadoQR = data?.barcode?.displeyValue;
-    // extraer datos del qr
+    this.resultadoQR = data?.barcode?.displayValue;
+
+    // Extraer datos del QR
     const [nombreClase, codigoClase, seccionClase, fecha, idusu] = this.resultadoQR.split(',').map(d => d.trim());
-    this.consumoApi.postPresente(this.idUser, codigoClase, seccionClase, fecha).subscribe(()=>{
-      this.consumoApi.getalumnXprofe(parseInt(idusu), parseInt(codigoClase)).subscribe((resul)=>{
-        this.servicioCompartido.actualizarAlumnos(resul);
-      });
+
+    // Registrar la asistencia
+    this.consumoApi.postPresente(this.idUser, codigoClase, seccionClase, fecha).subscribe(() => {
+      // Obtener lista actualizada
+      this.servicioCompartido.notificarActualizacion();
+      // this.consumoApi.getalumnXprofe(parseInt(idusu), parseInt(codigoClase)).subscribe((resul) => {
+      //   this.servicioCompartido.actualizarAlumnos(resul); // Compartir la lista actualizada
+      // });
     });
   }
 

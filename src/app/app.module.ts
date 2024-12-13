@@ -8,11 +8,13 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { QrCodeModule } from 'ng-qrcode';
+
+
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, CommonModule],
+  imports: [QrCodeModule,HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, CommonModule],
   providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

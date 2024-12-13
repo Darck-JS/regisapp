@@ -6,13 +6,20 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ServicioCompartidoService {
 
-  private alumnosSubject = new BehaviorSubject<any[]>([]);
-  alumnos$ = this.alumnosSubject.asObservable();
+  private refrescarListaSubject = new BehaviorSubject<boolean>(false);
+  refrescarLista$ = this.refrescarListaSubject.asObservable();
+
+  // private alumnosSubject = new BehaviorSubject<any[]>([]);
+  // alumnos$ = this.alumnosSubject.asObservable();
 
   constructor() { }
 
-  actualizarAlumnos(nuevaLista: any[]) {
-    this.alumnosSubject.next(nuevaLista);
+  // actualizarAlumnos(nuevaLista: any[]) {
+  //   this.alumnosSubject.next(nuevaLista);
+  // }
+
+  notificarActualizacion() {
+    this.refrescarListaSubject.next(true); // Indica que hay que actualizar la lista
   }
   
 }

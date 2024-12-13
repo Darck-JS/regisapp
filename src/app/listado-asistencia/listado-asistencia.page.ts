@@ -21,31 +21,34 @@ export class ListadoAsistenciaPage implements OnInit {
 
 
   constructor(private activerouter: ActivatedRoute,
-              private router: Router,
-              private consumoapi: ConsumoapiService,
-              private servicioCompartido: ServicioCompartidoService) {
+    private router: Router,
+    private consumoapi: ConsumoapiService,
+    private servicioCompartido: ServicioCompartidoService) {
     this.activerouter.queryParams.subscribe(params => {
     });
 
   }
 
   ngOnInit() {
-    this.generaQR();
-    this. servicioCompartido.alumnos$.subscribe((nuevaLista)=>{
-      this.alumnos = nuevaLista;
+    this.generaQR(); // Genera el QR al cargar la página
+
+    // Escucha notificaciones del servicio compartido para refrescar la lista
+    this.servicioCompartido.refrescarLista$.subscribe((debeActualizar) => {
+      if (debeActualizar) {
+        this.obtenerAlumnos(); // Forzar carga de la lista desde la API
+      }
     });
+
+    // Carga inicial de los alumnos
     this.obtenerAlumnos();
   }
+
 
   generaQR() {
     if (this.idClase) {
       const fechaActual = new Date().toISOString().split('T')[0]; //formato fecha
       const data = `${this.nombreClase}, ${this.codigoClase}, ${this.seccionClase}, ${fechaActual}, ${this.idUsu}`;
-
-      let qr = QRCode(4, 'L');
-      qr.addData(data);
-      qr.make();
-      this.qrDataURL = qr.createDataURL(4, 0);
+      this.qrDataURL = data;
     }
   }
   navega() {
@@ -74,18 +77,21 @@ export class ListadoAsistenciaPage implements OnInit {
 
   // obtener cursos
   obtenerAlumnos() {
+    // Llama al servicio de la API para obtener los alumnos del curso actual
     this.consumoapi.getalumnXprofe(this.idUsu, this.idClase).subscribe((res) => {
-      for (let i = 0; i < res.length; i++) {
-        if (parseInt(res[i].status) == 0) {
-          res[i].status = "AUSENTE";
-        }else if (parseInt(res[i].status) == 1) {
-          res[i].status = "PRESENTE"
-        }
-        this.alumnos = res;
-        this.servicioCompartido.actualizarAlumnos(res);
-      }
-    })
+      // Mapea la respuesta para transformar el estado numérico en texto legible
+      this.alumnos = res.map((alumno: { id: any; rut: any; nombre: any; status: string; }) => ({
+        id: alumno.id,                 // ID del alumno
+        rut: alumno.rut,               // RUT del alumno
+        nombre: alumno.nombre,         // Nombre del alumno
+        status: parseInt(alumno.status) === 1 ? 'PRESENTE' : 'AUSENTE' // Estado transformado
+      }));
+
+      // Log para depuración
+      console.log("Lista de alumnos actualizada:", this.alumnos);
+    });
   }
+
   volver() {
     this.router.navigate(['/home-profesor']);
   }
